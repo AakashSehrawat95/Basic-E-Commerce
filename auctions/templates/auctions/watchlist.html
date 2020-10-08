@@ -1,0 +1,34 @@
+{% extends 'auctions/layout.html' %}
+
+{% load static %}
+
+{% block body %}
+
+    {% if watchlistItems %}
+        {% for listing in watchlistItems %}
+            <div class='listing'>
+                <table>
+                    <tr>
+                        {% if listing.image %}
+                            <td> <a href = "{% url 'listingItem' listing_id=listing.id %}"> <img src="{{ listing.image.url }}"> </a> </td>
+                        {% else %}
+                            <td><img src="{% static 'auctions/unnamed.jpg' %}" alt="No Image Available"></td>
+                        {% endif %}
+                        <td class = "details" valign="top">
+                            <h3><a href="{% url 'listingItem' listing_id=listing.id %}">{{ listing.name }}</a>&nbsp;<span id="{{listing.activity}}">({{listing.get_activity_display }})</span> </h3>
+                            <text> <span class="bold"> Price:</span> &nbsp;  ${{ listing.starting_bid }}</text><br>
+                            <text> <span class="bold">Description:</span> &nbsp; {{ listing.desc }}</text><br>
+                            <text> <span class="bold">Created By:</span> &nbsp; {{listing.created_by.username}}</text><br>
+                            <text class="remove"><a href="{% url 'removeFromWatchlist' listing_id=listing.id  where_to='watchlist' %}">Remove from Watchlist</a></text>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        {% endfor %}
+
+    {% else %}
+    <h4>Nothing in watchlist</h2>
+
+    {% endif %}
+
+{% endblock %}

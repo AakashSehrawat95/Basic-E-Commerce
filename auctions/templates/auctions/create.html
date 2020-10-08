@@ -1,0 +1,48 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+    <form id="create_listing" action="{% url 'create_listing' %}" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td class="label"><label>Name:</label></td>
+                <td><input type="text" name="name" required></td>                
+            </tr>
+
+            <tr>
+                <td class="label"><label>Description:</label></td>
+                <td><textarea name="desc" required></textarea></td>
+            </tr>
+            
+            <tr>
+                <td class="label"><label>Starting Price:</label></td>
+                <td><input type="text" name="price" pattern="\d+(\.\d{1,2})?" title="Must be a number with upto two decimal places." required></td> 
+            </tr>
+
+            <tr>
+                <td class="label"><label>Upload Image:</label></td>
+                <td><input  type="file" id="image" name="image" accept="image/*" alt="No Image Available"></td>
+            </tr>
+
+            <tr>
+                <td class="label"><label>Category:</label></td>
+                <td><select id="categories" name="category" required>
+                    <option disabled selected value>---Select a Category---</option>
+                    <option value="C">Clothing & Footwear</option>
+                    <option value="H">Hardware and Electronics</option>
+                    <option value="E">Electrical Appliances</option>
+                    <option value="F">Furniture & Furnishings</option>
+                    <option value="T">Toys</option>
+                    <option value="D">Decorations</option>
+                    <option value="K">Kitchenware</option>
+                    <option value="TO">Toiletries</option>
+                    <option value="O">Others</option>
+                </select></td> 
+            </tr>
+        </table>
+
+        <input id="submit" type="submit">
+
+    </form>
+
+{% endblock %}

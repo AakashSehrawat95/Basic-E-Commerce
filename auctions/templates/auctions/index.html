@@ -1,0 +1,38 @@
+{% extends "auctions/layout.html" %}
+
+{% load static %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+
+    {% if listings %}
+        {% for listing in listings %}
+            {% if listing.activity == 'O' %}
+                <div class='listing'>
+                    <table>
+                        <tr>
+                            {% if listing.image %}
+                                <td class="itemImage"> <a href = "{% url 'listingItem' listing_id=listing.id %}"> <img src="{{ listing.image.url }}" style="margin-left:auto; margin-right:auto;"> </a> </td>
+                            {% else %}
+                                <td><img src="{% static 'auctions/unnamed.jpg' %}" alt="No Image Available"></td>
+                            {% endif %}
+                            <td class = "details" valign="top">
+                                <h3><a href="{% url 'listingItem' listing_id=listing.id %}">{{ listing.name }}</a>&nbsp;<span id="{{listing.activity}}">({{listing.get_activity_display }})</span> </h3>
+                                <text> <span class="bold"> Price:</span> &nbsp;  ${{ listing.starting_bid }}</text><br>
+                                <text> <span class="bold">Description:</span> &nbsp; {{ listing.desc }}</text><br>
+                                <text> <span class="bold">Category:</span> &nbsp; {{ listing.get_category_display }}</text><br>
+                                <text> <span class="bold">Created By:</span> &nbsp; {{listing.created_by.username}}</text><br>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+    {% else %}
+
+        <br><h4>No active listings</h2>
+    
+    {% endif %}
+
+{% endblock %}

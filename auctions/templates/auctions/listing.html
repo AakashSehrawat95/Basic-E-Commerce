@@ -1,0 +1,163 @@
+{% extends 'auctions/layout.html' %}
+
+{% load static %}
+{% load tz %}
+{% block body %}
+
+<!------------------------- Table for Listing Details --------------------------->
+
+<div id = "listing_container">
+
+<div id = "table_container">
+
+<table class="listing_details">
+    <tr>
+
+<!------------------------------- Listing Image --------------------------------->
+
+        {% if listing.image %}
+
+            <td> <a href = "{% url 'listingItem' listing_id=listing.id %}"> <img src="{{ listing.image.url }}" style="max-height: 900px; max-width: 500px;"> </a> </td>
+
+        {% else %}
+
+            <td><img src="{% static 'auctions/unnamed.jpg' %}" alt="No Image Available"></td>
+
+        {% endif %}
+
+<!------------------------------ Listing Details ---------------------------------->
+
+        <td class = "details" valign="top">
+            <h3>{{ listing.name }}&nbsp;<span id="{{listing.activity}}">({{listing.get_activity_display }})</span> </h3>
+
+            {% if user.is_authenticated %}
+
+                {% if isWatchlisted %}
+
+                    <text class="remove"><a href="{% url 'removeFromWatchlist' listing_id=listing.id where_to='listingItem'%}">Remove from Watchlist</a></text><br>
+
+                {% else %}
+
+                    <text><a href="{% url 'addToWatchlist' listing_id=listing.id %}">Add to Watchlist</a></text><br>
+
+                {% endif %}
+
+            {% endif %}
+
+            <text> <span class="bold">Starting Price:</span> &nbsp; ${{ listing.starting_bid }}</text><br>
+            {% if highestBid %}
+                <text> <span class="bold">Current Price:</span> &nbsp; ${{highestBid.bid_price}}</text><br>
+            {% endif %}
+            <text> <span class="bold">Description:</span> &nbsp; {{ listing.desc }}</text><br>
+            <text> <span class="bold">Category:</span> &nbsp; {{ listing.get_category_display }}</text><br>
+            <text> <span class="bold">Created By:</span> &nbsp; {{listing.created_by.username}}</text><br>
+            {% if highestBid %}
+                <text> <span class="bold">Highest Bidder:</span> &nbsp; {{highestBid.user.username}}</text><br>
+            {% endif %}
+
+<!-------------------------------Make/Close Bid Form--------------------------------->
+
+            {% if listing.activity == 'O' %}    
+
+                {% if not isCreator %}
+
+                    <form id="bidding" action="{% url 'makeBid' listing_id=listing.id%}" method="POST">
+                        {% csrf_token %}
+
+                        <span class="bold"><label>Make a bid:</label></span>
+
+                        {% if listing.starting_bid < highestBid.bid_price %}
+
+                            <input name="bidPrice" type="number" min="{{ highestBid.bid_price }}" max="9999" step=".01" required><br>
+
+                        {% else %}
+
+                            <input name="bidPrice" type="number" min="{{ listing.starting_bid }}" max="9999" step=".01" required><br>
+
+                        {% endif %}
+
+                        <input class="bidSubmit" type="submit">
+                    </form>
+
+                {% else %}
+
+                    <text><a href = "{% url 'closeBid' listing_id=listing.id %}">Close this Bid</a></text><br>
+
+                {% endif %}
+
+            {% else %}
+
+                {% if user.username == highestBid.user.username %}
+
+                <br><text><h4 id="win">You have won the bid!</h4></text>
+
+                {% endif %}
+
+            {% endif %}
+
+<!------------------------------- Remove Listing Link --------------------------------->
+
+            {% if user.is_authenticated %}
+
+                {% if isCreator %}
+
+                    <br><br><br><br><br><br><text class="remove"><a href="{% url 'removeListing' listing_id=listing.id %}">Delete Listing</a></text>
+
+                {% endif %}
+
+            {% endif %}
+
+        </td>
+    </tr>
+</table>
+
+<!---------------------------------- Comment Form ------------------------------------>
+
+{% if user.is_authenticated %}
+
+<form id="comment_form" action="{% url 'makeComment' listing_id=listing.id%}" method="POST">
+    {% csrf_token %}
+    <h3>Write a Comment:</h3>
+    <textarea name="commentText" wrap="hard" cols="120" rows="5" required></textarea><br>
+    <input type="submit">
+</form>
+
+{% endif %}
+
+</div>
+
+<!--------------------------------- List of Comments --------------------------------->
+
+<div id = "comments_container">
+
+<h2>Comments:</h2>
+
+{% if comments %}
+
+{% for comment in comments %}
+
+    <div class="comments">
+        <div id="user_details">
+            <h5>{{ comment.user.username }}</h5> 
+            <time>{{ comment.date|localtime }}</time><br>
+        </div>
+        <div id="content">
+
+            <p>{{comment.comment}}</p>
+
+        </div>
+    </div>
+
+{% endfor %}
+
+{% else %}
+
+<text>No Comments Yet</text>
+
+{% endif %}
+
+</div>
+
+</div>
+
+{% endblock %}

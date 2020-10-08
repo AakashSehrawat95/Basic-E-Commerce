@@ -1,0 +1,45 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+
+    <div class = "categories">
+
+        <div class = "category">
+            <a href="{% url 'categories' category='C' %}"><h2>Clothing and Footwear</h2></a>
+        </div>
+
+        <div class = "category">
+            <a href="{% url 'categories' category='H' %}"><h2>Hardware and Electronics</h2></a>
+        </div>
+
+        <div class = "category">
+            <a href="{% url 'categories' category='F' %}"><h2>Furniture and Furnishings</h2></a>
+        </div>
+
+        <div class = "category">
+            <a href="{% url 'categories' category='T' %}"><h2>Toys</h2></a>
+        </div>
+
+        <div class = "category">
+            <a href="{% url 'categories' category='D' %}"><h2>Decorations</h2></a>
+        </div>
+
+        <div class = "category">
+            <a href="{% url 'categories' category='K' %}"><h2>Kitchenware</h2></a>
+        </div>
+
+        <div class = "category">
+            <a href="{% url 'categories' category='E' %}"><h2>Electrical Appliances</h2></a>
+        </div>
+
+        <div class = "category">
+            <a href="{% url 'categories' category='TO' %}"><h2>Toiletries</h2></a>
+        </div>
+
+        <div class = "category">
+            <a href="{% url 'categories' category='O' %}"><h2>Others</h2></a>
+        </div>
+
+    </div>
+
+{% endblock %}

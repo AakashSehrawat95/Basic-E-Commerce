@@ -1,0 +1,183 @@
+body {
+    padding: 10px;
+}
+
+/*----------------------CREATE.HTML-----------------------*/
+
+#create_listing {
+    border: solid 1px rgb(182, 162, 162);
+    padding: 20px;
+    width: 600px;
+    background-color: rgb(252, 237, 237);
+}
+
+#create_listing textarea{
+    width: 182px;
+    height: 90px;
+}
+
+#create_listing table tr td{
+    padding: 10px;
+}
+
+.label {
+    font-weight: bolder;
+}
+
+#submit {
+    margin-top: 15px;
+    margin-left: 140px;
+}
+
+/*----------------------INDEX.HTML-----------------------*/
+
+.listing {
+    border: 1px solid rgb(170, 170, 170);
+    border-radius: 3px;
+    margin-top: 15px;
+    height: 300px;
+}
+
+.listing table{
+    height: inherit;
+}
+
+.listing table td{
+    width: 500px;
+    padding: 20px;
+    height: inherit;;
+}
+
+.listing table td img{
+    max-width: 440px;
+    max-height: 260px;
+
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.categories{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 20px;
+}
+
+.category{
+    width: 280px;
+    height: 180px;
+    padding: 40px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    margin: 15px;
+    border: rgb(61, 61, 61);
+    box-shadow: 13px 16px 19px -10px rgba(0,0,0,0.75);
+}
+
+.remove a{
+    color: red;
+}
+
+.listing_details{
+    box-shadow: 13px 16px 19px -10px rgba(109, 108, 96, 0.75) ;
+}
+
+.listing_details td {
+    padding: 30px;
+    border: 1px solid rgb(202, 202, 202);
+}
+
+
+#comment_form{
+    margin-top: 40px;
+    margin-left: 20px;
+    margin-bottom: 30px;
+}
+
+.comments{
+    background-color: blanchedalmond;
+    display: flex;
+    flex-direction: column;
+    width: 45vw;    
+    margin-top: 30px;
+    box-shadow: 13px 16px 19px -10px rgba(109, 108, 96, 0.75) ;
+}
+
+#user_details{
+    padding: 15px;
+    background-color: burlywood;
+    border: solid 1px rgb(172, 143, 105);
+    display: flex;
+    flex-direction: row;
+}
+
+#user_details h5{
+    flex-grow: 8;
+}
+
+#content{
+    padding: 15px 15px 5px 15px;
+    border: solid 1px rgb(138, 98, 46);
+}
+
+#O{
+    color: rgb(1, 197, 11);
+}
+
+#C{
+    color: red;
+}
+
+#bidding{
+    margin-top: 70px;
+    padding: 20px;
+    border: 3px dotted black;
+}
+
+#bidding input{
+    margin-bottom: 10px;
+}
+
+.bidSubmit{
+    margin-left: 65px;
+}
+
+#win {
+    margin-left: 20px;
+    color:  rgb(1, 197, 11);
+}
+
+#listing_container{
+    display: flex;
+    flex-direction: row;
+}
+
+#comments_container{
+    background-color: rgba(255, 237, 203, 0.753);
+    padding: 20px;
+    margin-left: 20px;
+    border: ridge 2px rgb(255, 219, 99);
+    width: 48vw;
+    height: 80vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+}
+
+#comments_container::-webkit-scrollbar {
+    width: 12px;
+  }
+
+#comments_container::-webkit-scrollbar-track {
+    background: grey; 
+  }
+
+#comments_container::-webkit-scrollbar-thumb {
+    background-color: orange;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    border: 3px solid grey;  /* creates padding around scroll thumb */
+  }
